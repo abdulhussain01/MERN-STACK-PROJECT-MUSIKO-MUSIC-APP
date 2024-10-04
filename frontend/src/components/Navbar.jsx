@@ -10,7 +10,7 @@ import {
   User,
   UserPlus,
 } from "lucide-react";
-import {  useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { changeTheme } from "../store/slices/theme.slice";
@@ -23,14 +23,14 @@ import useOutsideClick from "./subcomponents/useOutsideClick";
 
 const Navbar = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
-  
+
   const [popup, setPopUp] = useState(false);
   const { theme } = useSelector((state) => state.theme);
   const { isAuthenticated, user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const toggleMenuRef = useRef(null);
-  useOutsideClick(toggleMenuRef,[setToggleMenu])
+  useOutsideClick(toggleMenuRef, [setToggleMenu]);
 
   const handleThemeChange = () => {
     if (theme === "dark") {
@@ -58,14 +58,11 @@ const Navbar = () => {
         dispatch(logoutUser());
 
         toast.success(data.message);
-        
       }
     } catch (error) {
       console.error("Authentication error:", error);
     }
   };
-
-
 
   return (
     <nav
