@@ -52,9 +52,6 @@ function App() {
           `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/me`,
           {
             withCredentials: true,
-            headers: {
-              "Content-Type": "application/json",
-            },
           }
         );
 
