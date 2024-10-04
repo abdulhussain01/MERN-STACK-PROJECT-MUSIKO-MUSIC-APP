@@ -32,10 +32,7 @@ export const errorHandler = (err, req, res, next) => {
         .join(" ")
     : err.message;
 
-  res.header("Access-Control-Allow-Origin", process.env.MUSICAPP_URL);
-  res.header("Access-Control-Allow-Credentials", "true");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-
+ 
   return res.status(err.statusCode).json({
     success: false,
     message: erroMessage,

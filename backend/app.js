@@ -13,14 +13,12 @@ dotenv.config({ path: "./config/config.env" });
 
 app.use(
   cors({
-    origin: process.env.MUSICAPP_URL,
+    origin: "*",
     methods: ["GET", "PUT", "POST", "DELETE", "OPTIONS"],
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
-
-app.options("*", cors());
 
 app.use(express.json());
 app.use(cookieParser());
