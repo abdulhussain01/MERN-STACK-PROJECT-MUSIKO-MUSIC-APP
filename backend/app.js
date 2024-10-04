@@ -16,7 +16,7 @@ app.use(
     origin: process.env.MUSICAPP_URL,
     methods: "GET,PUT,POST,DELETE",
     credentials: true,
-    allowedHeaders: "*",
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
