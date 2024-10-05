@@ -11,23 +11,23 @@ import cors from "cors";
 const app = express();
 dotenv.config({ path: "./config/config.env" });
 
-// app.use(
-//   cors({
-//     origin: "*",
-//     methods: ["GET", "PUT", "POST", "DELETE", "OPTIONS"],
-//     credentials: true,
-//     allowedHeaders: ["Content-Type", "Authorization"],
-//   })
-// );
+app.use(
+  cors({
+    origin: [process.env.MUSICAPP_URL],
+    methods: ["GET", "PUT", "POST", "DELETE", "OPTIONS"],
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", process.env.MUSICAPP_URL);
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
+// app.use((req, res, next) => {
+//   res.setHeader("Access-Control-Allow-Origin", process.env.MUSICAPP_URL);
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With, Content-Type, Accept"
+//   );
+//   next();
+// });
 
 app.use(express.json());
 app.use(cookieParser());
