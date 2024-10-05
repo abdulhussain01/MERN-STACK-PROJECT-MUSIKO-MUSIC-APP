@@ -10,8 +10,6 @@ import { sendEmail } from "../utils/sendEmail.js";
 export const registerUser = catchAsyncErrors(async (req, res, next) => {
   const { fullName, email, username, password } = req.body;
 
-
-
   if (!fullName || !email || !username || !password) {
     return next(new HandleErrors("All Fields Are Required", 400));
   }
@@ -120,6 +118,8 @@ export const logoutUser = catchAsyncErrors(async (req, res, next) => {
     .cookie("token", "", {
       expires: new Date(Date.now()),
       httpOnly: true,
+      sameSite: "None",
+      secure: true,
     })
     .json({
       success: true,
@@ -141,6 +141,8 @@ export const deleteUser = catchAsyncErrors(async (req, res, next) => {
     .cookie("token", "", {
       expires: new Date(Date.now()),
       httpOnly: true,
+      sameSite: "None",
+      secure: true,
     })
     .json({
       success: true,
@@ -166,8 +168,6 @@ export const forgotPassword = catchAsyncErrors(async (req, res, next) => {
   await user.save();
 
   await sendEmail(user.email, resetPasswordToken);
-
-
 
   res.status(200).json({
     success: true,
@@ -212,7 +212,6 @@ export const resetPassword = catchAsyncErrors(async (req, res, next) => {
     message: "Password Reset Successfull",
   });
 });
-
 
 export const addSongToFavourites = catchAsyncErrors(async (req, res, next) => {
   const userId = req.user.id; // Assuming req.user contains the authenticated user's info
@@ -303,7 +302,6 @@ export const getFavouriteSongs = catchAsyncErrors(async (req, res, next) => {
     favouriteSongs: favouriteSongs,
   });
 });
-
 
 export const removeFromFavourite = catchAsyncErrors(async (req, res, next) => {
   const userId = req.user.id; // Assuming req.user contains the authenticated user's info
