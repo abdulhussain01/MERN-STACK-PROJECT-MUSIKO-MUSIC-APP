@@ -14,7 +14,7 @@ dotenv.config({ path: "./config/config.env" });
 app.use(
   cors({
     origin: [process.env.MUSICAPP_URL],
-    methods: ["GET", "PUT", "POST", "DELETE", "OPTIONS"],
+    methods: ["GET","POST" , "PUT", "DELETE", "OPTIONS"],
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
   })
