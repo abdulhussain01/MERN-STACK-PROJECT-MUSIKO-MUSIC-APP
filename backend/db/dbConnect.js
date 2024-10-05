@@ -4,7 +4,7 @@ const dbConnect = async () => {
   try {
 
     const connect = await mongoose.connect(process.env.MONGODBURI, {
-      dbName: "musicapp",
+      dbName: "musiko-backend",
     });
    
     connect.connection.on("connected", () => {
