@@ -16,7 +16,7 @@ const userSlice = createSlice({
     logoutUser(state, action) {
       state.isAuthenticated = false;
       state.user = {};
-      state.language = "";
+      state.language = state.language;
     },
     setLanguage(state, action) {
       state.language = action.payload;
@@ -160,7 +160,6 @@ export const fetchUser = () => async (dispatch) => {
       },
     }
   );
-  
 
   dispatch(userSlice.actions.loginUser(data.user));
 };

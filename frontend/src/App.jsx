@@ -17,7 +17,7 @@ import Search from "./pages/Search";
 import Songs from "./pages/Songs";
 import axios from "axios";
 import { loginUser } from "./store/slices/user.slice";
-import { ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import MyProfile from "./pages/MyProfile";
 import ResetPassword from "./pages/ResetPassword";
@@ -48,6 +48,7 @@ function App() {
     const fetchUser = async () => {
       try {
         // Fetch the user from the token
+        
         const { data } = await axios.get(
           `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/me`,
           {
@@ -60,7 +61,8 @@ function App() {
           setIsAuthenticatedUser(true);
         }
       } catch (error) {
-        console.error(error.response.data.message);
+        
+        toast.error(error.response.data.message)
         setIsAuthenticatedUser(false);
       }
 

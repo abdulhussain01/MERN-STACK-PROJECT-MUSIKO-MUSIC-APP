@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { fetchUser} from "../store/slices/user.slice";
+import { fetchUser } from "../store/slices/user.slice";
 import { toast } from "react-toastify";
+import {Loader2 } from "lucide-react";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const navigateTo = useNavigate();
   const { isAuthenticated } = useSelector((state) => state.user);
@@ -16,11 +18,11 @@ const Login = () => {
   useEffect(() => {
     if (isAuthenticated) {
       navigateTo("/", { replace: true });
-      
     }
   }, [isAuthenticated, dispatch]);
 
   const handleLogin = async () => {
+    setLoading(true);
     try {
       const { data } = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/login`,
@@ -40,10 +42,10 @@ const Login = () => {
         window.location.href = "/";
         dispatch(fetchUser());
         toast.success(data.message);
+        setLoading(false);
       }
     } catch (err) {
-   
-
+      setLoading(false);
       toast.error(err.response.data.message);
     }
   };
@@ -97,7 +99,9 @@ const Login = () => {
           className="px-4 py-3 bg-primary rounded-lg text-white text-lg font-bold"
           onClick={handleLogin}
         >
-          Login
+          {loading?<span className="text-center flex items-center justify-center gap-4">
+            <Loader2 className={`${loading && "animate-spin"}`}/>Logging in
+          </span>:"Login"}
         </button>
 
         <div className=" flex items-center justify-center gap-2">
