@@ -32,7 +32,7 @@ export const errorHandler = (err, req, res, next) => {
         .join(" ")
     : err.message;
 
-  res.header("Access-Control-Allow-Origin", "https://musiko.netlify.app");
+  res.header("Access-Control-Allow-Origin", process.env.MUSICAPP_URL);
   res.header(
     "Access-Control-Allow-Methods",
     "GET,OPTIONS,PATCH,DELETE,POST,PUT"

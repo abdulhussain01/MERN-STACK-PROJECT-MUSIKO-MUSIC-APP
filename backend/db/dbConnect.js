@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import dotenv from "dotenv";
+dotenv.config({ path: "./config/config.env" });
 
 const username = encodeURIComponent(process.env.MONGODB_USERNAME);
 const password = encodeURIComponent(process.env.MONGODB_PASSWORD);
