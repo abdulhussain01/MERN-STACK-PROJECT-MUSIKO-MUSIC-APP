@@ -117,7 +117,7 @@ export const logoutUser = catchAsyncErrors(async (req, res, next) => {
     .status(200)
     .cookie("token", "", {
       expires: new Date(Date.now()),
-      sameSite: "Lax",
+      sameSite: "None",
       httpOnly: true,
       secure: true,
       // partitioned: true,
@@ -141,7 +141,7 @@ export const deleteUser = catchAsyncErrors(async (req, res, next) => {
     .status(200)
     .cookie("token", "", {
       expires: new Date(Date.now()),
-      sameSite: "Lax",
+      sameSite: "None",
       httpOnly: true,
       secure: true,
     })
