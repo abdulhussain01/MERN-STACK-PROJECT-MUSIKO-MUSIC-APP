@@ -119,6 +119,9 @@ export const logoutUser = catchAsyncErrors(async (req, res, next) => {
       expires: new Date(Date.now()),
 
       httpOnly: true,
+      secure: true,
+      sameSite: "None",
+      
     })
     .json({
       success: true,
@@ -139,8 +142,9 @@ export const deleteUser = catchAsyncErrors(async (req, res, next) => {
     .status(200)
     .cookie("token", "", {
       expires: new Date(Date.now()),
-
       httpOnly: true,
+      secure: true,
+      sameSite: "None",
     })
     .json({
       success: true,
