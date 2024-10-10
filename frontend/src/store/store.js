@@ -39,7 +39,7 @@ const initializeStore = async () => {
   const persistConfig = {
     key: "root",
     storage: inPrivateMode ? createMemoryStorage() : storage,
-    blacklist: ["player"],
+    blacklist: ["player","user"],
   };
 
   const persistedReducer = persistReducer(persistConfig, rootReducer);
