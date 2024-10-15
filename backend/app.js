@@ -7,9 +7,12 @@ import userRouter from "./routes/user.routes.js";
 import playlistRouter from "./routes/playlist.routes.js";
 import { errorHandler } from "./middleware/handleError.js";
 import cors from "cors";
+import helmet from "helmet";
 
 const app = express();
 dotenv.config({ path: "./config/config.env" });
+
+app.use(helmet());
 
 app.use(
   cors({
@@ -17,14 +20,11 @@ app.use(
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
-    exposedHeaders: ["Content-Type", "Authorization"],
     
   })
 );
 
 app.options("*", cors());
-
-
 
 app.use(express.json());
 app.use(cookieParser());

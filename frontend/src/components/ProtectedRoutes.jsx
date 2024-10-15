@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
 
-import axios from "axios";
-// import { loginUser } from "../store/slices/user.slice";
 
 const ProtectedRoutes = ({loading,isAuthenticated}) => {
   

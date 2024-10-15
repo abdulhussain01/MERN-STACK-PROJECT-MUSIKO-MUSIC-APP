@@ -48,11 +48,14 @@ function App() {
     const fetchUser = async () => {
       try {
         // Fetch the user from the token
-        
+
         const { data } = await axios.get(
           `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/me`,
           {
             withCredentials: true,
+            headers: {
+              "Content-Type": "application/json",
+            },
           }
         );
 
@@ -60,9 +63,8 @@ function App() {
           dispatch(loginUser(data.user));
           setIsAuthenticatedUser(true);
         }
-      } catch (error) {
-        
-        toast.error(error.response.data.message)
+      } catch (err) {
+        toast.error(err.response.data.message);
         setIsAuthenticatedUser(false);
       }
 

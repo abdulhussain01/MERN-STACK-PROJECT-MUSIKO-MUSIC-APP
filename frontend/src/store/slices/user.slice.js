@@ -155,19 +155,11 @@ export const fetchUser = () => async (dispatch) => {
     `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/me`,
     {
       withCredentials: true,
-      headers: {
-        "Content-Type": "application/json",
-      },
     }
   );
 
   dispatch(userSlice.actions.loginUser(data.user));
 };
-
-//   } catch (error) {
-//     console.error(error.response.data.message)
-//   }
-// };
 
 export const { loginUser, logoutUser, setLanguage } = userSlice.actions;
 

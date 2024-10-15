@@ -49,27 +49,24 @@ const MusicPlayer = ({ theme }) => {
     setLiked(user?.favouriteSongs);
   }, [user.favouriteSongs]);
 
-  // const handleDownload = () => {
-  //   const link = document.createElement("a");
-  //   link.href = currentSong.downloadUrl[2].link; // File download URL
-  //   link.target="_blank"
-  //   link.download = "song.mp3"; // Set the default file name for download
-  //   document.body.appendChild(link); // Append the link to the DOM
-  //   link.click(); // Programmatically trigger the click event
-  //   document.body.removeChild(link); // Clean up by removing the link from the DOM
-  // };
+ 
 
   const handleDownload = async () => {
-    const url1 = currentSong?.downloadUrl[4]?.link | currentSong?.downloadUrl[3]?.link |currentSong?.downloadUrl[2]?.link |currentSong?.downloadUrl[1]?.link |currentSong?.downloadUrl[0]?.link;
+    const url1 =
+      currentSong?.downloadUrl[4]?.link ||
+      currentSong?.downloadUrl[3]?.link ||
+      currentSong?.downloadUrl[2]?.link ||
+      currentSong?.downloadUrl[1]?.link ||
+      currentSong?.downloadUrl[0]?.link;
+
     try {
       // Fetch the file
       setDownloadLoading(true);
 
-      const response = await fetch(currentSong?.downloadUrl[4].link);
+      const response = await fetch(url1);
       // Convert the response to a Blob
       const blob = await response.blob();
 
-   
       // Create a temporary URL for the Blob object
       const url = window.URL.createObjectURL(blob);
 
@@ -84,12 +81,12 @@ const MusicPlayer = ({ theme }) => {
       // Clean up the blob URL
       window.URL.revokeObjectURL(url);
 
-
       setDownloadLoading(false);
-    } catch (error) {
+      toast.success("Download Complete");
+    } catch (err) {
       setDownloadLoading(false);
-
-      console.error("Download failed:", error);
+      toast.error("Download Failed");
+      // console.error("Download failed:", error);
     }
   };
 
@@ -170,8 +167,12 @@ const MusicPlayer = ({ theme }) => {
             className={`  overflow-hidden ${fullScreen ? "p-10" : "w-[65px] "}`}
           >
             <img
-              src={currentSong?.image && currentSong?.image[2].link}
-              alt={`${currentSong?.name}cover`}
+              src={
+                currentSong?.image
+                  ? currentSong?.image[2].link
+                  : "/songlogo.png"
+              }
+              alt={`song logo`}
               className={` aspect-square  rounded-full m-auto ${
                 !fullScreen && isplayerActive ? "animate-slow " : "w-[20rem]"
               } animate-none`}
@@ -193,8 +194,7 @@ const MusicPlayer = ({ theme }) => {
         >
           <MediaPlayer
             src={
-              (currentSong?.downloadUrl &&
-                currentSong?.downloadUrl[4 ]?.link) ||
+              (currentSong?.downloadUrl && currentSong?.downloadUrl[4]?.link) ||
               (currentSong?.downloadUrl && currentSong?.downloadUrl[3]?.link) ||
               (currentSong?.downloadUrl && currentSong?.downloadUrl[2]?.link)
             }
@@ -244,7 +244,11 @@ const MusicPlayer = ({ theme }) => {
               onClick={handleDownload}
               className="flex items-center justify-center p-2 rounded-lg transition-colors duration-300"
             >
-              {downloadLoading? <Loader2 size={20} color={` white `} className="animate-spin"/> :<Download size={20} color={` white `} />}
+              {downloadLoading ? (
+                <Loader2 size={20} color={` white `} className="animate-spin" />
+              ) : (
+                <Download size={20} color={` white `} />
+              )}
             </button>
 
             <div

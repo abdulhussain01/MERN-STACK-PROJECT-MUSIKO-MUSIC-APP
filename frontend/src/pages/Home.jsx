@@ -17,12 +17,15 @@ const Home = () => {
   useEffect(() => {
     let getLang = localStorage.getItem("lang");
 
+    
     if (!getLang) {
       dispatch(setLanguage("hindi"));
       localStorage.setItem("lang", language);
+      getLang = "hindi";
     } else {
       dispatch(setLanguage(getLang));
     }
+
 
     const fetchData = async () => {
       const { data } = await axios.get(

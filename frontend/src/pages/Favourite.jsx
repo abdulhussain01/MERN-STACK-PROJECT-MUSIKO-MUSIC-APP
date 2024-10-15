@@ -14,11 +14,14 @@ import { EllipsisVertical } from "lucide-react";
 import { converDuration } from "../utils/durationconvertor";
 import { decode } from "html-entities";
 import { toast } from "react-toastify";
+import Modal from "../components/subcomponents/Modal";
 
 const Favourite = () => {
   const [favouriteInfo, setFavouriteInfo] = useState();
 
   const [optionsMenu, setOptionsMenu] = useState("");
+  const [allPlaylists, setAllPlaylists] = useState();
+  const { user } = useSelector((state) => state.user);
 
   const { isplayerActive, currentSong } = useSelector((state) => state.player);
 
@@ -165,36 +168,17 @@ const Favourite = () => {
                   </button>
                 </div>
                 {optionsMenu === item.id && (
-                  <div
-                    className="absolute right-8 -top-5  "
-                    ref={contentBoxRef}
-                  >
-                    <div className=" bg-commonbackgroundtwo rounded-lg border border-black text-center">
-                      <h3 className="text-lg font-bold border-b-2 border-commonbackground">
-                        Options
-                      </h3>
-                      <div className="flex flex-col ">
-                        {item.favourite && (
-                          <Link
-                            onClick={() => {}}
-                            to={`/favourite/${item.favourite.id}`}
-                            className="hover:bg-commonbackground  px-4 py-2"
-                          >
-                            Go to favourite
-                          </Link>
-                        )}
-                        <button
-                          onClick={() => handleRemoveFavourite(item.id)}
-                          className="hover:bg-commonbackground px-4 py-2 rounded-b-lg"
-                        >
-                          Remove This Song
-                        </button>
-                        <button className="hover:bg-commonbackground px-4 py-2 rounded-b-lg">
-                          Add to Playlist
-                        </button>
-                      </div>
-                    </div>
-                  </div>
+                  <Modal
+                    song={item}
+                    optionsMenu={optionsMenu}
+                    songId={item.id}
+                    albumId={item.album.id}
+                    setOptionsMenu={setOptionsMenu}
+                    allPlaylists={allPlaylists}
+                    setAllPlaylists={setAllPlaylists}
+                    user={user}
+                    handleDeleteFromFavourite={handleRemoveFavourite}
+                  />
                 )}
               </div>
             ))}

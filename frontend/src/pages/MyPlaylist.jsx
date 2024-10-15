@@ -15,15 +15,18 @@ import {
 import { toast } from "react-toastify";
 import { fetchUser } from "../store/slices/user.slice";
 import { deleteSongFromPlaylist } from "../utils/addSongsToPlaylist";
+import Modal from "../components/subcomponents/Modal";
 
 const MyPlaylist = () => {
   const [playlistInfo, setPlaylistInfo] = useState();
   const [optionsMenu, setOptionsMenu] = useState("");
+  const [allPlaylists, setAllPlaylists] = useState();
   const navigateTo = useNavigate();
 
   const { id } = useParams();
 
   const { isplayerActive, currentSong } = useSelector((state) => state.player);
+  const { user } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
 
@@ -70,14 +73,13 @@ const MyPlaylist = () => {
         navigateTo("/");
       }
     } catch (err) {
-   
       toast.error(err.response.data.message);
     }
   };
 
   const handleDeleteSongFromPlaylist = async (songId) => {
     deleteSongFromPlaylist(id, songId);
-   
+
     setPlaylistInfo((prev) => {
       return {
         ...prev,
@@ -161,37 +163,19 @@ const MyPlaylist = () => {
                     <EllipsisVertical />
                   </button>
                 </div>
+                
                 {optionsMenu === item.id && (
-                  <div
-                    className="absolute right-8 -top-5  "
-                    // ref={contentBoxRef}
-                  >
-                    <div className=" bg-commonbackgroundtwo rounded-lg border border-black text-center">
-                      <h3 className="text-lg font-bold border-b-2 border-commonbackground">
-                        Options
-                      </h3>
-                      <div className="flex flex-col ">
-                        {item.favourite && (
-                          <Link
-                            onClick={() => {}}
-                            to={`/favourite/${item.favourite.id}`}
-                            className="hover:bg-commonbackground  px-4 py-2"
-                          >
-                            Go to favourite
-                          </Link>
-                        )}
-                        <button
-                          onClick={() => handleDeleteSongFromPlaylist(item.id)}
-                          className="hover:bg-commonbackground px-4 py-2 rounded-b-lg"
-                        >
-                          Remove This Song
-                        </button>
-                        <button className="hover:bg-commonbackground px-4 py-2 rounded-b-lg">
-                          Add to Playlist
-                        </button>
-                      </div>
-                    </div>
-                  </div>
+                  <Modal
+                    song={item}
+                    optionsMenu={optionsMenu}
+                    songId={item.id}
+                    albumId={item.album.id}
+                    setOptionsMenu={setOptionsMenu}
+                    allPlaylists={allPlaylists}
+                    setAllPlaylists={setAllPlaylists}
+                    user={user}
+                    handleDeleteFromPlaylist={handleDeleteSongFromPlaylist}
+                  />
                 )}
               </div>
             ))}

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { fetchUser } from "../store/slices/user.slice";
 import { toast } from "react-toastify";
-import {Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -32,6 +32,7 @@ const Login = () => {
         },
         {
           withCredentials: true,
+
           headers: {
             "Content-Type": "application/json",
           },
@@ -99,9 +100,14 @@ const Login = () => {
           className="px-4 py-3 bg-primary rounded-lg text-white text-lg font-bold"
           onClick={handleLogin}
         >
-          {loading?<span className="text-center flex items-center justify-center gap-4">
-            <Loader2 className={`${loading && "animate-spin"}`}/>Logging in
-          </span>:"Login"}
+          {loading ? (
+            <span className="text-center flex items-center justify-center gap-4">
+              <Loader2 className={`${loading && "animate-spin"}`} />
+              Logging in
+            </span>
+          ) : (
+            "Login"
+          )}
         </button>
 
         <div className=" flex items-center justify-center gap-2">

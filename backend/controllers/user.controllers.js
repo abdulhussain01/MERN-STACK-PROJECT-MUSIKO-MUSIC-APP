@@ -117,11 +117,9 @@ export const logoutUser = catchAsyncErrors(async (req, res, next) => {
     .status(200)
     .cookie("token", "", {
       expires: new Date(Date.now()),
-
       httpOnly: true,
       secure: true,
       sameSite: "None",
-      
     })
     .json({
       success: true,
@@ -134,7 +132,7 @@ export const deleteUser = catchAsyncErrors(async (req, res, next) => {
 
   const user = await User.findById(userId);
 
-  await Playlist.deleteMany({ user: userId });
+  const playlist = await Playlist.deleteMany({ user: userId });
 
   await user.deleteOne();
 

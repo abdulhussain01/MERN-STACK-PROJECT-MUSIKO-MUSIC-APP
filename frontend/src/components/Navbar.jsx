@@ -72,8 +72,18 @@ const Navbar = () => {
       <div className=" cursor-pointer flex gap-5 items-center">
         <Menu onClick={() => setToggleMenu(!toggleMenu)} />
 
-        <Link to={"/"} className="hidden sm:block">
-          <h1 className="  text-3xl font-bold">Musiko</h1>
+        <Link to={"/"} className="hidden sm:flex w-32 h-full">
+          <img
+            src="/musikodark.png"
+            alt="MusiKoLogo"
+            className="hidden dark:block"
+          />
+          <img
+            src="/musikolight.png"
+            alt="MusiKoLogo"
+            className="dark:hidden"
+          />
+          {/* <h1 className="  text-3xl font-bold">Musiko</h1> */}
         </Link>
       </div>
       <SearchInput />
@@ -82,8 +92,17 @@ const Navbar = () => {
           !toggleMenu ? "-translate-x-[350px]" : ""
         } fixed left-0 w-60 sm:72 md:w-80 inset-0 bg-commonbackgroundtwo p-2  flex flex-col transition-all duration-300 ease-in-out z-20 overflow-y-scroll noscroll`}
       >
-        <div className="h-[3.7rem] flex border-b border-commonbackground ">
-          <h1 className="text-center m-auto text-3xl font-bold">Musiko</h1>
+        <div className="h-[3.7rem] flex border-b border-commonbackground justify-center items-center ">
+          <img
+            src="/musikodark.png"
+            alt="MusiKoLogo"
+            className="hidden dark:block h-10"
+          />
+          <img
+            src="/musikolight.png"
+            alt="MusiKoLogo"
+            className="dark:hidden h-10"
+          />
         </div>
 
         <ul className="text-center my-4 flex-1">

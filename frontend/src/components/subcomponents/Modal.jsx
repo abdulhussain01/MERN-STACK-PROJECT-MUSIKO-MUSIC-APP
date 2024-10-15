@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { addSongToPlaylist } from "../../utils/addSongsToPlaylist";
 import useOutsideClick from "./useOutsideClick";
 import { addSongsToFavourite } from "../../utils/songsToFavourite";
@@ -14,7 +14,11 @@ const Modal = ({
   setOptionsMenu,
   allPlaylists,
   setAllPlaylists,
+  handleDeleteFromPlaylist,
+  handleDeleteFromFavourite,
 }) => {
+  const location = useLocation();
+
   const modalRef = useRef(null);
   useOutsideClick(modalRef, [setOptionsMenu, setAllPlaylists]);
 
@@ -39,18 +43,37 @@ const Modal = ({
                   Go to album
                 </Link>
 
-                <button
-                  onClick={() => addSongsToFavourite(song)}
-                  className="hover:bg-commonbackground px-4 py-2 rounded-b-lg"
-                >
-                  Add to Favourite
-                </button>
-                <button
-                  onClick={() => setAllPlaylists(true)}
-                  className="hover:bg-commonbackground px-4 py-2 rounded-b-lg"
-                >
-                  Add to Playlist
-                </button>
+                {location.pathname.includes("favourite") ? (
+                  <button
+                    onClick={() => {
+                      handleDeleteFromFavourite(song.id)}}
+                    className="hover:bg-commonbackground px-4 py-2 rounded-b-lg"
+                  >
+                    Remove From Favourite
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => addSongsToFavourite(song)}
+                    className="hover:bg-commonbackground px-4 py-2 rounded-b-lg"
+                  >
+                    Add to Favourite
+                  </button>
+                )}
+                {location.pathname.includes("myplaylist") ? (
+                  <button
+                    onClick={() => handleDeleteFromPlaylist(song.id)}
+                    className="hover:bg-commonbackground px-4 py-2 rounded-b-lg"
+                  >
+                    Remove From Playlist
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => setAllPlaylists(true)}
+                    className="hover:bg-commonbackground px-4 py-2 rounded-b-lg"
+                  >
+                    Add to Playlist
+                  </button>
+                )}
               </div>
             </div>
           ) : (

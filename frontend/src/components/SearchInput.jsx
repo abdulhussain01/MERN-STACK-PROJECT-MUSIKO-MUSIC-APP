@@ -11,12 +11,13 @@ const SearchInput = () => {
   const [toggleSetting, setToggleSetting] = useState(false);
   const [toggleLanguage, setToggleLanguage] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const { isAuthenticated, user } = useSelector((state) => state.user);
+  const { isAuthenticated, user, language } = useSelector(
+    (state) => state.user
+  );
 
   const dispatch = useDispatch();
   const settingRef = useRef(null);
-  useOutsideClick(settingRef,[setToggleSetting,setToggleLanguage])
-  
+  useOutsideClick(settingRef, [setToggleSetting, setToggleLanguage]);
 
   const handleSubmit = () => {
     window.location.href = `/search?query=${searchQuery}`;
@@ -51,7 +52,7 @@ const SearchInput = () => {
             setToggleSetting(true);
           }}
         >
-          {user?.image ? (
+          {user?.image && user?.image ? (
             <img
               src="../../public/vite.svg"
               alt=""
@@ -112,20 +113,23 @@ const SearchInput = () => {
                 <ArrowLeft />
               </button>
               <div className="grid grid-cols-2 ">
-                {languages.map((language) => (
+                {languages.map((lang) => (
                   <div
-                    className=" text-lg text-start m-1 p-2 hover:bg-commonbackground rounded-md dark:hover:text-commonblack"
-                    key={language}
+                    className={` text-lg text-start m-1 p-2 hover:bg-commonbackground rounded-md dark:hover:text-commonblack  ${
+                      language === lang ? "bg-commonbackground" : ""
+                    }`}
+                    key={lang}
                   >
                     {/* <Languages size={20} className="w-full" /> */}
                     <button
-                    onClick={()=>{
-                    
-                    localStorage.setItem("lang", language)
-                    dispatch(setLanguage(language))
-                    }
-                    }
-                     className="w-full capitalize ">{language}</button>
+                      onClick={() => {
+                        localStorage.setItem("lang", lang);
+                        dispatch(setLanguage(lang));
+                      }}
+                      className={`w-full capitalize`}
+                    >
+                      {lang}
+                    </button>
                   </div>
                 ))}
               </div>
