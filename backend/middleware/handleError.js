@@ -32,16 +32,16 @@ export const errorHandler = (err, req, res, next) => {
         .join(" ")
     : err.message;
 
-  res.header("Access-Control-Allow-Origin", process.env.MUSICAPP_URL);
-  res.header(
-    "Access-Control-Allow-Methods",
-    "GET,OPTIONS,PATCH,DELETE,POST,PUT"
-  );
-  res.header(
-    "Access-Control-Allow-Headers",
-    "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization"
-  );
-  res.header("Access-Control-Allow-Credentials", true);
+  // res.header("Access-Control-Allow-Origin", process.env.MUSICAPP_URL);
+  // res.header(
+  //   "Access-Control-Allow-Methods",
+  //   "GET,OPTIONS,PATCH,DELETE,POST,PUT"
+  // );
+  // res.header(
+  //   "Access-Control-Allow-Headers",
+  //   "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization"
+  // );
+  // res.header("Access-Control-Allow-Credentials", true);
 
   return res.status(err.statusCode).json({
     success: false,
