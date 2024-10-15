@@ -12,11 +12,9 @@ import helmet from "helmet";
 const app = express();
 dotenv.config({ path: "./config/config.env" });
 
-app.use(helmet());
-
 app.use(
   cors({
-    origin: "*",
+    origin: [process.env.MUSICAPP_URL],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
@@ -24,6 +22,8 @@ app.use(
 );
 
 app.options("*", cors());
+
+app.use(helmet());
 
 app.use(express.json());
 app.use(cookieParser());
