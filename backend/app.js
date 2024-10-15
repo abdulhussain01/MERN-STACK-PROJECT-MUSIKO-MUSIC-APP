@@ -16,7 +16,7 @@ app.use(helmet());
 
 app.use(
   cors({
-    origin: [process.env.MUSICAPP_URL],
+    origin: "*",
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
